@@ -5,11 +5,13 @@ html
 		form(id='contact' method='POST' action='/search')
 			div(class='container')
 				div(class='head')
-					h2 Messages
+					h2 MESSAGES
+				
 				each thing in result
-					ul #{thing.title} #{thing.body}
+					h2 #{thing.title}
+					p #{thing.body}
+					hr(id='newMessage')
 
 				br
 
-				a(class='button' href='/addMessage') Write messages
-				
+				a(class='button' href='/addMessage') Write new message

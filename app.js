@@ -10,20 +10,18 @@ app.set( 'views', __dirname + '/views' )
 app.use(express.static('static'))
 app.use( bodyParser.json() )
 
-// connect to database
-
 
 // addMessage page with form
 app.get( '/addMessage', (req, res) => {
-	console.log( 'Render addMessage')
 	res.render( 'addMessage' )
 } )
+
 
 app.post( '/addMessage', bodyParser.urlencoded({extended: true}), (req, res) => {
 	let inputTitle 		= req.body.title
 	let inputMessage 	= req.body.message
 
-	let connectionString = 'postgres://floriandalhuijsen@localhost/bulletinboard'
+	let connectionString= 'postgres://floriandalhuijsen@localhost/bulletinboard'
 
 		pg.connect(connectionString, (err, client, done) => {
 			if (err) {
@@ -34,9 +32,16 @@ app.post( '/addMessage', bodyParser.urlencoded({extended: true}), (req, res) => 
 					throw err
 				}
 				done()
+			})
+
+			client.query( 'SELECT * FROM messages;', [], (err, result) => {
+				if (err) {
+				throw err
+				}
+				done()
+				res.render( 'showMessage', {result: result.rows})
 				pg.end()
 			})
-		res.redirect( '/showMessage' )
 	})
 })
 
@@ -46,23 +51,18 @@ app.post( '/addMessage', bodyParser.urlencoded({extended: true}), (req, res) => 
 
 app.get( '/showMessage', (req, res) => {
 	console.log( 'Render addMessage')
-	res.render( 'showMessage' )
-} )
-
-app.post( '/showMessage', (req, res) => {
 	let connectionString = 'postgres://floriandalhuijsen@localhost/bulletinboard'
 		pg.connect(connectionString, (err, client, done) => {
 			if (err) {
-			throw err
-			}
-			client.query( 'SELECT * FROM messages;' , [], (err, result) => {
-				if (err) {
 				throw err
+			}
+			client.query( 'SELECT title,body FROM messages;', [], (err, result) => {
+				if (err) {
+					throw err
 				}
 				done()
-				pg.end()
-			})
-		res.render( '/showMessage', {result: result})
+				res.render( 'showMessage', {result: result.rows})
+		})
 	})
 })
 

@@ -88,17 +88,7 @@ button:hover, .button:hover {
   background:#19a08c;
 }
 
-.buttonLeft {
-  float: left;
-}
 
-.buttonRight{
-  float: right;
-}
-
-.buttonCenter{
-  float: center;
-}
 
 label.error {
     font-family:'Source Sans Pro',arial,sans-serif;
@@ -142,4 +132,8 @@ label.error {
     -webkit-border-radius:6px;
     -moz-border-radius:6px;
     border-radius:6px;
+}
+
+#newMessage {
+  width: 50%;
 }
