@@ -21,7 +21,7 @@ app.post( '/addMessage', bodyParser.urlencoded({extended: true}), (req, res) => 
 	let inputTitle 		= req.body.title
 	let inputMessage 	= req.body.message
 
-	let connectionString= 'postgres://floriandalhuijsen@localhost/bulletinboard'
+	var connectionString = 'postgres://' + process.env.POSTGRES_USER + '@localhost/bulletinboard'
 
 		pg.connect(connectionString, (err, client, done) => {
 			if (err) {
@@ -51,7 +51,7 @@ app.post( '/addMessage', bodyParser.urlencoded({extended: true}), (req, res) => 
 
 app.get( '/showMessage', (req, res) => {
 	console.log( 'Render addMessage')
-	let connectionString = 'postgres://floriandalhuijsen@localhost/bulletinboard'
+	var connectionString = 'postgres://' + process.env.POSTGRES_USER + '@localhost/bulletinboard'
 		pg.connect(connectionString, (err, client, done) => {
 			if (err) {
 				throw err
