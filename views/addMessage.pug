@@ -1,3 +1,16 @@
 html
 	head
+		link(rel = "stylesheet" href = "style.css" type = "text/css")
 	body
+		form(id='contact' method ='POST' action ='/addMessage')
+			div(class='container')
+				div(class='head')
+					h2 Write Message
+				input(name='title' type='text' placeholder='Title')
+				input(name='message' type='text' placeholder='Message')
+				div(class='write')
+				input(id='submit' type='submit' value='Submit')
+
+				br
+
+				a(class='button' href='/showMessage') Messages list

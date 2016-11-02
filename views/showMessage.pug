@@ -1,3 +1,15 @@
 html
 	head
+		link(rel = "stylesheet" href = "style.css" type = "text/css")
 	body
+		form(id='contact' method='POST' action='/search')
+			div(class='container')
+				div(class='head')
+					h2 Messages
+				each thing in result
+					ul #{thing.title} #{thing.body}
+
+				br
+
+				a(class='button' href='/addMessage') Write messages
+				

@@ -2,18 +2,15 @@
 const express 	= require( 'express' )
 const fs 	  	= require( 'fs' )
 const app	  	= express()
-const bodyParser= require('body-parser' )
 const pg 		= require( 'pg' )
+const bodyParser= require('body-parser' )
 
 app.set( 'view engine', 'pug')
 app.set( 'views', __dirname + '/views' )
 app.use(express.static('static'))
-
-// parse application/json 
 app.use( bodyParser.json() )
 
 // connect to database
-var connectionString = 'postgres://' + process.env.POSTGRES_USER + ':' + process.env.POSTGRES_PASSWORD + '@localhost/bulletinboard';
 
 
 // addMessage page with form
@@ -22,14 +19,52 @@ app.get( '/addMessage', (req, res) => {
 	res.render( 'addMessage' )
 } )
 
+app.post( '/addMessage', bodyParser.urlencoded({extended: true}), (req, res) => {
+	let inputTitle 		= req.body.title
+	let inputMessage 	= req.body.message
+
+	let connectionString = 'postgres://floriandalhuijsen@localhost/bulletinboard'
+
+		pg.connect(connectionString, (err, client, done) => {
+			if (err) {
+				throw err
+			}
+			client.query( 'INSERT INTO messages (title, body) values ($1,$2);', [inputTitle, inputMessage], (err, result) => {
+				if (err) {
+					throw err
+				}
+				done()
+				pg.end()
+			})
+		res.redirect( '/showMessage' )
+	})
+})
+
 
 
 //showMessage page with board
-app.get( '/showMessage', (req, res) => {
-	console.log( 'Render showMessage')
-	res.render( 'showMessage')
-})
 
+app.get( '/showMessage', (req, res) => {
+	console.log( 'Render addMessage')
+	res.render( 'showMessage' )
+} )
+
+app.post( '/showMessage', (req, res) => {
+	let connectionString = 'postgres://floriandalhuijsen@localhost/bulletinboard'
+		pg.connect(connectionString, (err, client, done) => {
+			if (err) {
+			throw err
+			}
+			client.query( 'SELECT * FROM messages;' , [], (err, result) => {
+				if (err) {
+				throw err
+				}
+				done()
+				pg.end()
+			})
+		res.render( '/showMessage', {result: result})
+	})
+})
 
 
 //LISTEN
