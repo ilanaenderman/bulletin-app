@@ -12,12 +12,12 @@ app.use( bodyParser.json() )
 
 
 // addMessage page with form
-app.get( '/addMessage', (req, res) => {
+app.get( '/', (req, res) => {
 	res.render( 'addMessage' )
 } )
 
 
-app.post( '/addMessage', bodyParser.urlencoded({extended: true}), (req, res) => {
+app.post( '/', bodyParser.urlencoded({extended: true}), (req, res) => {
 	let inputTitle 		= req.body.title
 	let inputMessage 	= req.body.message
 

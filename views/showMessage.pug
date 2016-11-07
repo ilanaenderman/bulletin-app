@@ -9,7 +9,7 @@ html
 				a#logo.brand-logo Bulletin Board
 				ul.right
 					li
-						a(href="/addMessage") Add Message
+						a(href="/") Add Message
 
 		div#header.valign-wrapper
 			div.row.valign
@@ -26,7 +26,7 @@ html
 										div(class='head')
 				
 										each thing in result
-											h2 #{thing.title}
+											h3 #{thing.title}
 											p #{thing.body}
 											hr(id='newMessage')
 
