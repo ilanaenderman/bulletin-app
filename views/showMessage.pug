@@ -1,17 +1,39 @@
 html
 	head
-		link(rel = "stylesheet" href = "style.css" type = "text/css")
+		title #{title}
+		link( href="/css/materialize.min.css" type="text/css" rel="stylesheet" )
+		link( href="/style.css" type="text/css" rel="stylesheet" )
 	body
-		form(id='contact' method='POST' action='/search')
-			div(class='container')
-				div(class='head')
-					h2 MESSAGES
+		nav
+			div.nav-wrapper
+				a#logo.brand-logo Bulletin Board
+				ul.right
+					li
+						a(href="/addMessage") Add Message
+
+		div#header.valign-wrapper
+			div.row.valign
+				div.col.l12
+					h1.center.white-text 
+		main
+			div.container
+				div.row
+					div.col.l8.offset-l2
+						div#topcard.card
+							div.card-content
+								form(id='contact' method='POST' action='/search')
+									div(class='container')
+										div(class='head')
 				
-				each thing in result
-					h2 #{thing.title}
-					p #{thing.body}
-					hr(id='newMessage')
+										each thing in result
+											h2 #{thing.title}
+											p #{thing.body}
+											hr(id='newMessage')
 
-				br
-
-				a(class='button' href='/addMessage') Write new message
+										br
+		footer.page-footer
+			div.container
+				div.container.grey-text © 2016 Ilana Enderman
+		script( src="/jquery-3.1.1.min.js" )
+		script( src="/js/materialize.min.js" )
+		script( src="/main.js" )
