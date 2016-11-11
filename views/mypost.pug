@@ -8,8 +8,19 @@ html
 			div.nav-wrapper
 				a#logo.brand-logo Blog
 				ul.right
+					li 
+						a#logo= user.fname + " " + user.lname
 					li
-						a(href="/showMessage") Messages
+						a(href='/profile') Home
+					li
+						a(href='/newpost') Write Post
+					li
+						a(href='/mypost') My Posts
+					li
+						a(href='/allpost') All Posts
+					li
+						a(href='/logout') Log Out
+
 
 		div#header.valign-wrapper
 			div.row.valign
@@ -21,16 +32,17 @@ html
 					div.col.l8.offset-l2
 						div#topcard.card
 							div.card-content
-								form(id='contact' method ='POST' action ='/addMessage')
+								form(id='contact' method='POST' action='/mypost')
 									div(class='container')
 										div(class='head')
-											h2 NEW MESSAGE
-										input(name='title' type='text' placeholder='Title')
-										input(name='message' type='text' placeholder='Write message')
-										div(class='write')
-										input(id='submit' type='submit' value='Send')
+											h2 My Posts
+										each thing in addpost
+											h3 #{thing.title}
+											p #{thing.body}
+											hr(id='newMessage')
 
 										br
+
 		footer.page-footer
 			div.container
 				div.container.grey-text © 2016 Ilana Enderman

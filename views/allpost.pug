@@ -1,39 +1,47 @@
 html
 	head
-		title #{title}
+		script(src='/main.js')
+
 		link( href="/css/materialize.min.css" type="text/css" rel="stylesheet" )
 		link( href="/style.css" type="text/css" rel="stylesheet" )
 	body
 		nav
 			div.nav-wrapper
-				a#logo.brand-logo Blog
-				ul.right
-					li
-						a(href="/showMessage") Messages
+				a#logo.brand-logo Blog 
 
+				ul.right
+					li 
+						a#logo= user.fname + " " + user.lname
+					li
+						a(href='/profile') Home
+					li
+						a(href='/newpost') Write Post
+					li
+						a(href='/mypost') My Posts
+					li
+						a(href='/allpost') All Posts
+					li
+						a(href='/logout') Log Out
+			
 		div#header.valign-wrapper
 			div.row.valign
 				div.col.l12
-					h1.center.white-text 
 		main
 			div.container
 				div.row
 					div.col.l8.offset-l2
 						div#topcard.card
 							div.card-content
-								form(id='contact' method ='POST' action ='/addMessage')
+								form(id='contact' method ='POST' action ='/profile')
 									div(class='container')
 										div(class='head')
-											h2 NEW MESSAGE
-										input(name='title' type='text' placeholder='Title')
-										input(name='message' type='text' placeholder='Write message')
-										div(class='write')
-										input(id='submit' type='submit' value='Send')
+											h2 All Posts
+										h3 Users
 
-										br
 		footer.page-footer
 			div.container
 				div.container.grey-text © 2016 Ilana Enderman
+
 		script( src="/jquery-3.1.1.min.js" )
 		script( src="/js/materialize.min.js" )
 		script( src="/main.js" )

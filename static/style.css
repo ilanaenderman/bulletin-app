@@ -28,3 +28,9 @@ nav, footer.page-footer {
 main {
   flex: 1 0 auto;
 }
+
+#logo {
+  color: yellow;
+
+}
+
