@@ -34,13 +34,29 @@ html
 					div.col.l8.offset-l2
 						div#topcard.card
 							div.card-content
-								form(id='contact' method ='POST' action ='/profile')
-									div(class='container')
-										div(class='head')
-											h2 Profile
-										br
-										h3= user.fname + " " + user.lname
-										br
+								div(class='container')
+									div(class='head')
+										h2 Specific Post
+									br
+									each thing in specific
+										div.card-content
+											div(class='head')
+												h4 #{thing.title}
+												p #{thing.body}
+												br
+												p#author By #{thing.user.fname} #{thing.user.lname}
+												br
+											hr(id='newMessage')
+											h5 Comments
+											form(method='post' action='/post')
+												input(name='comment' id='input' type='text' placeholder='Enter Comment')
+												input(name='postID' value= thing.id type='hidden')
+												div(class='write')
+												button#button(type='submit' class='btn btn-default') Comment
+												br
+												br
+												- for(var i = 0; i < thing.comments.length; i++)
+													p #{thing.comments[i].body} - #{thing.comments[i].user.fname} #{thing.comments[i].user.lname}
 
 		footer.page-footer
 			div.container

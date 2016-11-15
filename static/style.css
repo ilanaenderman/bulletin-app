@@ -30,7 +30,19 @@ main {
 }
 
 #logo {
-  color: yellow;
+  color: #F8D480;
 
 }
 
+.user {
+  font-size: 10px;
+  color: teal;
+}
+
+#author{
+  font-style: italic;
+}
+
+h2{
+  text-align: center;
+}

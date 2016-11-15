@@ -12,7 +12,7 @@ app.set( 'view engine', 'pug')
 app.set( 'views', __dirname + '/views' )
 
 app.use( express.static('static'))
-app.use( bodyParser.json() )
+app.use( bodyParser.urlencoded({extended: true}))
 app.use(session({
 	secret: 'security is important',
 	resave: true,
@@ -37,12 +37,19 @@ let Post = db.define('post', {
 })
 
 let Comment = db.define('comment', {
-	title: sequelize.STRING,
-	body: sequelize.STRING
+	body: sequelize.STRING,
 })
 
 //define relation
 User.hasMany( Post )
+User.hasMany( Comment )
+
+Post.belongsTo( User )
+Post.hasMany( Comment )
+
+Comment.belongsTo( Post )
+Comment.belongsTo( User )
+
 
 
 //Route Log in page
@@ -139,10 +146,10 @@ app.post('/newpost', bodyParser.urlencoded({extended: true}), (request, response
 app.get('/mypost', (request, response) => {
 	var user = request.session.user
 
+
 	Post.findAll({
 		where: {userId: request.session.user.id}
 	}).then( addpost => {
-
 		response.render('mypost', {user: user, addpost: addpost})
 	})
 })
@@ -151,7 +158,71 @@ app.get('/mypost', (request, response) => {
 // All posts
 app.get('/allpost', (request, response) => {
 	var user = request.session.user
-	response.render('allpost', {user: user})
+
+	Post.findAll({
+		include: [{
+			model: User
+		}]
+	}).then( addpost => {
+		response.render('allpost', {user: user, addpost: addpost})
+	})
+})
+
+app.post('/allpost', bodyParser.urlencoded({extended: true}), (request, response) => {
+	var user = request.session.user
+
+	Post.findAll({
+		where: {id: request.body.postID},
+		include: [{
+			model: Comment,
+			include: [User]
+		}, {
+			model: User
+		}]
+	}).then( specificpost => {
+		response.render('post', {user: user, specific: specificpost})
+	})
+})
+
+app.get('/post', (request, response) => {
+	var user = request.session.user
+
+	Post.findAll({
+		where: {id: request.session.postID}, 
+		include: [{
+			model: Comment,
+			include: [User]
+		}, {
+			model: User
+		}]
+	}).then ( specificpost => {
+		response.render('post', {user: user, specific, specificpost})
+	})
+})
+
+// Create Comments on Specific Page
+
+app.post('/post', bodyParser.urlencoded({extended: true}), (request, response) => {
+	var user = request.session.user
+
+	Comment.create({
+		body: request.body.comment,
+		postId: request.body.postID,
+		userId: user.id
+	}).then( comment => {
+		Post.findAll({
+			where: {id: request.body.postID},
+			include:[{
+				model: Comment,
+				include: [User]
+			}, {
+				model: User
+			}]
+		}).then( specificpost => {
+			console.log(comment)
+			response.render('post', {user: user, specific: specificpost})
+		})
+	})
 })
 
 
@@ -175,6 +246,16 @@ db.sync({force: true}).then( () => {
 		lname: "Enderman",
 		email: "ilana@hotmail.com",
 		password: "hocuspocus"
+	})
+	Post.create({
+		title: 'A Day at the park',
+		body: 'I had a nice day at the park, I played in the sun and ate some ice cream.',
+		userId: 1
+	})
+	Comment.create({
+		body: 'Groetjes',
+		userId: 1,
+		postId: 1
 	}).then( () => {
 		var server = app.listen(8000, () => {
 			console.log('Example app listening on port: ' + server.address().port);

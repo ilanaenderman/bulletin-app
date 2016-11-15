@@ -1,6 +1,9 @@
 html
 	head
-		title #{title}
+		script(src='/jquery-3.1.1.min.js')
+		script(src='/custom.js')
+		script(src='/main.js')
+
 		link( href="/css/materialize.min.css" type="text/css" rel="stylesheet" )
 		link( href="/style.css" type="text/css" rel="stylesheet" )
 	body
@@ -32,16 +35,19 @@ html
 					div.col.l8.offset-l2
 						div#topcard.card
 							div.card-content
-								form(id='contact' method='POST' action='/mypost')
-									div(class='container')
-										div(class='head')
-											h2 My Posts
-										each thing in addpost
-											h3 #{thing.title}
+								div(class='container')
+									div(class='head')
+										h2= user.fname + "'s posts"
+									br
+									each thing in addpost
+										div.card-content
+											h4 #{thing.title}
 											p #{thing.body}
 											hr(id='newMessage')
-
-										br
+											form( method='post' action='/allpost')
+												button#button(type='submit' class ='btn btn-default' name='postID' value=thing.id) Go to blog
+											br
+									br
 
 		footer.page-footer
 			div.container
