@@ -12,12 +12,12 @@ app.use( bodyParser.json() )
 
 
 // addMessage page with form
-app.get( '/', (req, res) => {
+app.get( '/addMessage', (req, res) => {
 	res.render( 'addMessage' )
 } )
 
 
-app.post( '/', bodyParser.urlencoded({extended: true}), (req, res) => {
+app.post( '/addMessage', bodyParser.urlencoded({extended: true}), (req, res) => {
 	let inputTitle 		= req.body.title
 	let inputMessage 	= req.body.message
 
@@ -48,7 +48,6 @@ app.post( '/', bodyParser.urlencoded({extended: true}), (req, res) => {
 
 
 //showMessage page with board
-
 app.get( '/showMessage', (req, res) => {
 	console.log( 'Render addMessage')
 	var connectionString = 'postgres://floriandalhuijsen@localhost/bulletinboard'

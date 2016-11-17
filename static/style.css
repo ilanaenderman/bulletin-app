@@ -5,7 +5,7 @@ body {
   flex-direction: column;
 }
 nav, footer.page-footer {
-  background-color: black;
+  background-color: #9A1600;
 }
 
 #logo {
@@ -19,7 +19,7 @@ nav, footer.page-footer {
 #header {
   min-height: 500px;
   background-color: grey;
-  background-image: url('/message.jpg');
+  background-image: url('/cork.jpg');
   background-position: center;
   background-size: cover;
 }
@@ -27,4 +27,24 @@ nav, footer.page-footer {
 
 main {
   flex: 1 0 auto;
+}
+
+.btn.btn-default {
+  background-color: #9A1600;
+}
+
+input[type=text]{
+  font-size: 30px;
+}
+
+input[type=submit]{
+  font-size: 20px;
+}
+
+#href {
+  font-size: 30px
+}
+
+#lead {
+  font-size: 30px
 }

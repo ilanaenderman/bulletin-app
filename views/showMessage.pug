@@ -9,7 +9,7 @@ html
 				a#logo.brand-logo Bulletin Board
 				ul.right
 					li
-						a(href="/") Add Message
+						a(id='href' href="/addMessage") Add Message
 
 		div#header.valign-wrapper
 			div.row.valign
@@ -18,7 +18,7 @@ html
 		main
 			div.container
 				div.row
-					div.col.l8.offset-l2
+					div.col.l10.offset-l1
 						div#topcard.card
 							div.card-content
 								form(id='contact' method='POST' action='/search')
@@ -26,14 +26,16 @@ html
 										div(class='head')
 				
 										each thing in result
-											h3 #{thing.title}
-											p #{thing.body}
-											hr(id='newMessage')
+											div.card-content
+												h2 #{thing.title}
+												p#lead #{thing.body}
+												hr(id='newMessage')
 
 										br
 		footer.page-footer
 			div.container
 				div.container.grey-text © 2016 Ilana Enderman
+				br
 		script( src="/jquery-3.1.1.min.js" )
 		script( src="/js/materialize.min.js" )
 		script( src="/main.js" )

@@ -9,7 +9,7 @@ html
 				a#logo.brand-logo Bulletin Board
 				ul.right
 					li
-						a(href="/showMessage") Messages
+						a(id='href' href="/showMessage") Messages
 
 		div#header.valign-wrapper
 			div.row.valign
@@ -18,22 +18,23 @@ html
 		main
 			div.container
 				div.row
-					div.col.l8.offset-l2
+					div.col.l10.offset-l1
 						div#topcard.card
 							div.card-content
 								form(id='contact' method ='POST' action ='/addMessage')
 									div(class='container')
 										div(class='head')
 											h2 NEW MESSAGE
-										input(name='title' type='text' placeholder='Title')
-										input(name='message' type='text' placeholder='Write message')
+										input(name='title' type='text' placeholder='Title' required )
+										input(name='message' type='text' placeholder='Write message' required)
 										div(class='write')
-										input(id='submit' type='submit' value='Send')
+										input(id='submit' class='btn btn-default' type='submit' value='Send')
 
 										br
 		footer.page-footer
 			div.container
 				div.container.grey-text © 2016 Ilana Enderman
+				br
 		script( src="/jquery-3.1.1.min.js" )
 		script( src="/js/materialize.min.js" )
 		script( src="/main.js" )
