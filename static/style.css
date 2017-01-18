@@ -29,6 +29,7 @@ main {
   flex: 1 0 auto;
 }
 
+<<<<<<< HEAD
 .btn.btn-default {
   background-color: #9A1600;
 }
@@ -47,4 +48,22 @@ input[type=submit]{
 
 #lead {
   font-size: 30px
+=======
+#logo {
+  color: #F8D480;
+
+}
+
+.user {
+  font-size: 10px;
+  color: teal;
+}
+
+#author{
+  font-style: italic;
+}
+
+h2{
+  text-align: center;
+>>>>>>> 7145721ba0d55292f932f1298bbf07243828e388
 }
